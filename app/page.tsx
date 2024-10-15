@@ -5,31 +5,48 @@ import { Button } from "@/components/ui/button";
 /** @format */
 
 import { Textarea } from "@/components/ui/textarea";
-import axios from "axios";
 import { useState } from "react";
 
 export default function Home() {
 	const [prompt, setPrompt] = useState("name some cricketers");
 	const [response, setResponse] = useState("...");
 
-	const url = process.env.NEXT_PUBLIC_url;
+	const url = process.env.NEXT_PUBLIC_apiroute;
+	if (!url) {
+		// console.error("URL not found");
+		throw new Error("URL not found");
+	}
 	const data = JSON.stringify({
 		prompt: prompt,
 	});
-	const config = {
-		method: "post",
-		url: url,
-		headers: {
-			"Content-Type": "application/json",
-		},
-		maxBodyLenth: Infinity,
-		data: data,
-	};
+
 	const clickHandler = async () => {
+		// console.log(url);
 		try {
-			const response = await axios(config);
-			setResponse(response.data.text);
-			console.log(response);
+			// const response = await axios(config);
+			// const response = await fetch({
+			// 	url: url,
+			// 	method: "POST",
+			// 	headers: {
+			// 		"Content-Type": "application/json",
+			// 	},
+			// 	body: data,
+			// });
+			// setResponse(response.data.text);
+			// console.log(response);
+			const resp = await fetch(url, {
+				method: "POST",
+				body: data,
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+
+			if (!resp.ok) {
+				console.log("error");
+			}
+			const datap = await resp.json();
+			setResponse(datap.text);
 		} catch (error) {
 			console.error(error);
 		}
