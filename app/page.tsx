@@ -11,7 +11,7 @@ export default function Home() {
 	const [prompt, setPrompt] = useState("name some cricketers");
 	const [response, setResponse] = useState("...");
 
-	const url = process.env.NEXT_PUBLIC_apiroute;
+	const url = process.env.NEXT_PUBLIC_API;
 	if (!url) {
 		// console.error("URL not found");
 		throw new Error("URL not found");
