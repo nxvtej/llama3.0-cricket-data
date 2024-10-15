@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 
 import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
-import { env } from "process";
 import { useState } from "react";
 
 export default function Home() {
