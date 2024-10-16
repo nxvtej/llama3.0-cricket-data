@@ -1,7 +1,7 @@
 /** @format */
 
 "use client";
-import { Button } from "@/components/ui/button";
+import { SpinnerButton } from "@/components/ui/SpinnerButton";
 /** @format */
 
 import { Textarea } from "@/components/ui/textarea";
@@ -10,6 +10,7 @@ import { useState } from "react";
 export default function Home() {
 	const [prompt, setPrompt] = useState("name some cricketers");
 	const [response, setResponse] = useState("...");
+	const [loading, setLoading] = useState(false);
 
 	const url = process.env.NEXT_PUBLIC_APIROUTE;
 	if (!url) {
@@ -21,6 +22,7 @@ export default function Home() {
 
 	const clickHandler = async () => {
 		// console.log(url);
+		setLoading(true);
 		try {
 			const resp = await fetch(url, {
 				method: "POST",
@@ -38,6 +40,7 @@ export default function Home() {
 		} catch (error) {
 			console.error(error);
 		}
+		setLoading(false);
 	};
 	return (
 		<div className='flex flex-col min-h-screen justify-center items-center'>
@@ -56,16 +59,20 @@ export default function Home() {
 						}}
 					/>
 					<br />
-					<Button variant='secondary' onClick={clickHandler}>
+					<SpinnerButton name='Submit' state={loading} onClick={clickHandler}>
 						Hit BedRock
-					</Button>
+					</SpinnerButton>
 				</div>
 				<br />
 				<br />
 				<div className='text-slate-500 text-3xl underline'>
 					<h1>Response</h1>
 				</div>
-				<span className='text-slate-500'>{response}</span>
+			</div>
+			<div className='w-80'>
+				<div className='flex flex-col flex-row'>
+					<span className='text-slate-500'>{response}</span>
+				</div>
 			</div>
 		</div>
 	);
