@@ -13,7 +13,6 @@ export default function Home() {
 
 	const url = process.env.NEXT_PUBLIC_APIROUTE;
 	if (!url) {
-		// console.error("URL not found");
 		throw new Error("URL not found");
 	}
 	const data = JSON.stringify({
@@ -23,17 +22,6 @@ export default function Home() {
 	const clickHandler = async () => {
 		// console.log(url);
 		try {
-			// const response = await axios(config);
-			// const response = await fetch({
-			// 	url: url,
-			// 	method: "POST",
-			// 	headers: {
-			// 		"Content-Type": "application/json",
-			// 	},
-			// 	body: data,
-			// });
-			// setResponse(response.data.text);
-			// console.log(response);
 			const resp = await fetch(url, {
 				method: "POST",
 				body: data,
