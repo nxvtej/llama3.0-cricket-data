@@ -11,12 +11,14 @@ import { useState } from "react";
 
 export default function Home() {
 	const router = useRouter();
-	const [prompt, setPrompt] = useState("Name some cricketers");
+	const [prompt, setPrompt] = useState(
+		"Demo Prompt: How to play cricket? (in 50 words)"
+	);
 	const [response, setResponse] = useState("...");
 	const [loading, setLoading] = useState(false);
 	const [back, setBack] = useState(false);
 	const [placeholder, setPlaceholder] = useState(
-		"Demo Prompt: Name some cricketers"
+		"Demo Prompt: How to play cricket? (in 50 words)"
 	);
 	const url = process.env.NEXT_PUBLIC_APIROUTE;
 	if (!url) {
@@ -56,7 +58,6 @@ export default function Home() {
 		// redicet page to this url 100xnavi.com
 		setBack(false);
 		router.push("https://100xnavi.com");
-		// redirect("https://100xnavi.com");
 	};
 	return (
 		<div className='flex flex-col min-h-screen justify-center items-center'>
