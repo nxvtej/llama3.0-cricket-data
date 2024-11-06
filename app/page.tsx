@@ -17,6 +17,7 @@ export default function Home() {
 	const [response, setResponse] = useState("...");
 	const [loading, setLoading] = useState(false);
 	const [back, setBack] = useState(false);
+	const [disabled, setDisabled] = useState(true);
 	const [placeholder, setPlaceholder] = useState(
 		"Demo Prompt: How to play cricket? (in 50 words)"
 	);
@@ -48,7 +49,14 @@ export default function Home() {
 		} catch (error) {
 			console.error(error);
 		}
+		setDisabled(false);
 		setLoading(false);
+	};
+	const clearclickHandler = async () => {
+		setPrompt("");
+		setResponse("...");
+		setDisabled(true);
+		setPlaceholder("...");
 	};
 
 	const backclickHandler = async () => {
@@ -76,21 +84,31 @@ export default function Home() {
 						}}
 					/>
 					<br />
-					<div className='flex space-x-2'>
-						<SpinnerButton
-							name='Hit BedRock'
-							state={loading}
-							onClick={clickHandler}></SpinnerButton>
-						{/* <Link href='https://100xnavi.com'>
+					<div className='flex justify-between'>
+						<div className='space-x-2'>
+							<SpinnerButton
+								name='Hit BedRock'
+								state={loading}
+								onClick={clickHandler}></SpinnerButton>
+							{/* <Link href='https://100xnavi.com'>
 							<SpinnerButton name='Go Back' state={back} />
 							</Link> */}
-						<SpinnerButton
-							name='Go Back'
-							state={back}
-							onClick={backclickHandler}
-						/>
+							<SpinnerButton
+								name='Go Back'
+								state={back}
+								onClick={backclickHandler}
+							/>
+						</div>
+						<div>
+							<SpinnerButton
+								disabled={disabled}
+								variant={"secondary"}
+								name='Clear'
+								state={back}
+								onClick={clearclickHandler}></SpinnerButton>
+						</div>
 					</div>
-					{/* <SpinnerButton>Go back</SpinnerButton> */}
+					{/* <SpinnerButton>Go back</SpinnerBu back</SpinnerButton> */}
 				</div>
 				<br />
 				<br />
